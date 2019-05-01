@@ -42,9 +42,13 @@ import {
 export default {
   name: "UpdateDataset",
   components: {},
+  computed:{
+    projectName (){
+      return this.$store.state.projectName
+    }
+  },
   data() {
     return {
-      projectName: "marketing-tag-delivery-uhc",
       datasets: [],
       activeFile: "",
       datasetName: ""

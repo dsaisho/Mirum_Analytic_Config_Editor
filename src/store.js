@@ -15,14 +15,15 @@ export const store = new Vuex.Store({
     userName: "mirumagency",
     trackEvent: new TrackEvent("trackClick", true),
     activeFile:'',
-    projectName:"",
-    projectListLoaded:false
+    activeDataset:"",
+    projectListLoaded:false,
+    projectName:"marketing-tag-delivery-uhc"
   },
   mutations: {
     updateActiveFile:function(state, _value){
-      //note:: _value = [activeFile , projectName]
+      //note:: _value = [activeFile , activeDataset]
       state.activeFile = _value[0]
-      state.projectName = _value[1]
+      state.activeDataset = _value[1]
     },
     createTableHeaders: function(state) {
       state.tableHeaders = Object.keys(state.tableCategories[0]).map(

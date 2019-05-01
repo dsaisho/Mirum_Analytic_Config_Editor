@@ -23,7 +23,7 @@ export const UploadFile = (_fileData = "", _fileName = "", _id = "", _owner = de
 
 export const GetFile = (_fileName = "", _id = "", _owner = defaultOwner) => {
     const fileUrl = `https://api.data.world/v0/file_download/${_owner}/${_id}/${_fileName}`;
-
+    console.log(fileUrl)
     return axios.get(fileUrl, basicConfig())
             .then(dataObj => {
                 return CsvToJson().fromString(dataObj.data)

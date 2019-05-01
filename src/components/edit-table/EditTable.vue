@@ -1,35 +1,20 @@
 <template>
-  <v-layout row wrap justify-space-around>
-    <v-flex xs12 ma-4>
+  <v-flex  >
+    <v-flex  >
       <div v-bind:id="this.uid"></div>
     </v-flex>
-    <v-flex xs5 align-content-center>
-      <v-btn v-on:click="exportTableDataClicked">log table data</v-btn>
-      <v-btn color="red" v-on:click="uploadDataClicked">Upload file</v-btn>
-      <v-btn color="green" v-on:click="refreshTable">Refresh Table</v-btn>
+    <v-flex xs12 align-content-center ml-0>
+      <v-btn class="ml-0" v-on:click="addRowClicked">Add Row</v-btn>
+      <v-btn v-if="this.selectedRow " v-on:click="deleteRowClicked">Delete Highlighted Row</v-btn>
+      <v-btn v-on:click="saveTableClicked">Save Table</v-btn>
     </v-flex>
 
-    <v-flex xs12 align-content-center>
-      <p class="text-xs-center title mt-4 text-truncate deep-orange--text">{{this.deleteItemTitle}}</p>
-      <v-btn
-        v-if="this.deleteItemTitle != this.defaultDeleteText"
-        class="d-flex mx-auto"
-        color="deep-orange"
-        v-on:click="deleteRowClicked"
-      >Delete Row</v-btn>
-    </v-flex>
 
     <v-flex xs4 v-if="false">
       <v-select v-on:change="onLobSelected" :items="lobItems" label="Select LOB"></v-select>
     </v-flex>
 
-    <v-flex xs4 v-if="this.currentLob != '*' ">
-      <v-text-field v-model="adobeKey" label="Adobe Key"/>
-      <v-text-field v-model="adobeValue" label="Adobe Value"/>
-
-      <v-btn class="ma-0 mp-0" color="yellow" v-on:click="addValueClicked">Add Value</v-btn>
-    </v-flex>
-  </v-layout>
+  </v-flex>
 </template>
 
 
@@ -61,19 +46,9 @@ export default {
       deleteItemTitle: "click row to delete it",
       loadedTableData: {},
       tableColumns: {},
-      adobeKey: "",
-      adobeValue: "",
       currentLob: "*",
       table: {},
-      selectedRow: {},
-      lobItems: [
-        "*",
-        "medicare and retirement (fed)",
-        "community and state",
-        "medicare and retirement (is)",
-        "optum care",
-        "employee insurance"
-      ]
+      selectedRow: null
     };
   },
   watch: {
@@ -100,12 +75,14 @@ export default {
         columns: this.tableColumns,
         rowClick: this.rowClicked,
         //autoColumns:true,
-        selectable: "1"
+        selectable: "1",
+        layoutColumnsOnNewData:true,
       });
     },
     getTableData() {
       return GetFile(this.fileName, this.projectName)
             .then(jsonData => {
+              console.log(jsonData)
               this.loadedTableData = jsonData;
               this.tableColumns = this.getTableColumns(jsonData[0])
             });
@@ -123,11 +100,8 @@ export default {
     refreshTable() {
       this.getTableData().then(res => this.setupTable());
     },
-    exportTableDataClicked() {
-      console.log(this.fileName, this.table.getData());
-      console.log(Pappa.unparse(this.table.getData()));
-    },
-    uploadDataClicked() {
+    saveTableClicked() {
+      this.table.redraw(true);
       UploadFile(
         Pappa.unparse(this.table.getData()),
         this.fileName,
@@ -140,13 +114,18 @@ export default {
         : this.table.setFilter("line_of_business", "=", e);
       this.currentLob = e;
     },
-    addValueClicked() {
-      let newRowObject = {
+    addRowClicked() {
+      let blankRowObject2 = {
         line_of_business: this.currentLob,
         adobe_analytics_config_key: this.adobeKey,
         adobe_analytics_config_value: this.adobeValue
       };
-      this.table.addRow(newRowObject);
+      let blankRowObject= {};
+      this.tableColumns.map((column,i) => {
+        blankRowObject[column.field] = "BLANK_ENTRY"; 
+      })
+
+      this.table.addRow(blankRowObject);
     },
     rowClicked(e, row) {
       this.deleteItemTitle = row._row.cells.map(cell => ' '+cell.value).toString()

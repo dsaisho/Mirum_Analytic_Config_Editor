@@ -10,8 +10,8 @@
         </div>
       </v-flex>
       <v-flex align-end d-flex red--text mb-3>
-        <a>Link for something 1</a>
-        <a>Link to do things</a>
+        <router-link to="/">Home</router-link>
+        <router-link to="/edit">Edit Tables</router-link>
       </v-flex>
     </v-card>
   </v-layout>

@@ -13,9 +13,17 @@ export const store = new Vuex.Store({
     tableHeaders: {},
     tableLoadComplete: false,
     userName: "mirumagency",
-    trackEvent: new TrackEvent("trackClick", true)
+    trackEvent: new TrackEvent("trackClick", true),
+    activeFile:'',
+    projectName:"",
+    projectListLoaded:false
   },
   mutations: {
+    updateActiveFile:function(state, _value){
+      //note:: _value = [activeFile , projectName]
+      state.activeFile = _value[0]
+      state.projectName = _value[1]
+    },
     createTableHeaders: function(state) {
       state.tableHeaders = Object.keys(state.tableCategories[0]).map(
         category => {

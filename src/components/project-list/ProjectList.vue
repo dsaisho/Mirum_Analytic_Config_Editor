@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-card v-for="(dataset,key) in datasets" :key="key" class="pa-1 mb-3" >
+    <v-card v-for="(dataset,key) in editableDatasets" :key="key" class="pa-1 mb-3" >
       <h2>
         <v-icon class="light-blue--text">folder</v-icon>
         {{dataset.data.id}}
@@ -46,8 +46,8 @@ export default {
     projectName (){
       return this.$store.state.projectName
     },
-    datasets(){
-      return this.$store.state.datasets
+    editableDatasets(){
+      return this.$store.getters.editableDatasets
     }
   },
   data() {

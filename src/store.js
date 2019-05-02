@@ -7,38 +7,39 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    projectName:"testupload",
+    projectName: "testupload",
     //projectName:"marketing-tag-delivery-uhc"
-    projectListLoaded:false,
+    projectListLoaded: false,
     tableCategories: [],
     tableHeaders: {},
-    activeFile:'',
-    activeDataset:"",
-    datasets:{}
+    activeFile: '',
+    activeDataset: "",
+    datasets: []
   },
   mutations: {
-    SET_PROJECT_LIST_LOADED(state, _value){
+    SET_PROJECT_LIST_LOADED(state, _value) {
       state.projectListLoaded = _value
     },
-    SET_DATASET(state,_value){
+    SET_DATASET(state, _value) {
       state.datasets = _value
     },
-    updateActiveFile:function(state, _value){
+    updateActiveFile: function (state, _value) {
       //note:: _value = [activeFile , activeDataset]
       state.activeFile = _value[0]
       state.activeDataset = _value[1]
     },
-    createTableHeaders: function(state) {
+    createTableHeaders: function (state) {
       state.tableHeaders = Object.keys(state.tableCategories[0]).map(
         category => {
           return {
             text: category,
             value: category
-        }});
+          }
+        });
     },
   },
   actions: {
-    INIT_LINKED_DATASETS: function(context){
+    INIT_LINKED_DATASETS: function (context) {
       GetLinkedDatasets(context.state.projectName).then(res => {
         context.commit("SET_DATASET", res)
         context.commit("SET_PROJECT_LIST_LOADED", true)
@@ -46,10 +47,18 @@ export const store = new Vuex.Store({
     }
   },
   getters: {
-    editableDatasets (state){
-      return true
+    editableDatasets(state) {
+      const editableDatasets = state.datasets.reduce((_datasetList, currentDataset) => {
+        const id = currentDataset.data.id;
+        if (id.indexOf("output") === -1) {
+          _datasetList.push(currentDataset)
+        }
+        return _datasetList
+      }, [])
+      
+      return editableDatasets
     },
-    readyToShowTable(state){
+    readyToShowTable(state) {
       return state.activeFile && state.projectListLoaded
     }
 

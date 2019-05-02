@@ -1,22 +1,27 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import {
+  GetLinkedDatasets
+} from "@/utils/api/data-world-api.js";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
+    projectName:"testupload",
+    //projectName:"marketing-tag-delivery-uhc"
+    projectListLoaded:false,
     tableCategories: [],
     tableHeaders: {},
-    userName: "mirumagency",
     activeFile:'',
     activeDataset:"",
-    projectListLoaded:false,
-    projectName:"testupload"
-    //projectName:"marketing-tag-delivery-uhc"
+    datasets:{}
   },
   mutations: {
     SET_PROJECT_LIST_LOADED(state, _value){
       state.projectListLoaded = _value
+    },
+    SET_DATASET(state,_value){
+      state.datasets = _value
     },
     updateActiveFile:function(state, _value){
       //note:: _value = [activeFile , activeDataset]
@@ -33,8 +38,12 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-   
-    
+    INIT_LINKED_DATASETS: function(context){
+      GetLinkedDatasets(context.state.projectName).then(res => {
+        context.commit("SET_DATASET", res)
+        context.commit("SET_PROJECT_LIST_LOADED", true)
+      })
+    }
   },
   getters: {
     editableDatasets (state){

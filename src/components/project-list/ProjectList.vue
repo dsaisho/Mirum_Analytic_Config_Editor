@@ -45,23 +45,21 @@ export default {
   computed:{
     projectName (){
       return this.$store.state.projectName
+    },
+    datasets(){
+      return this.$store.state.datasets
     }
   },
   data() {
     return {
-      datasets: []
+     
     };
   },
   destroyed: function(){
-    this.$store.state.projectListLoaded = false;
+     this.$store.commit("SET_PROJECT_LIST_LOADED", false)
   },
   mounted: function() {
-    //TODO: make this an action in the store
-    //get the project info
-    GetLinkedDatasets(this.projectName).then(res => {
-      this.datasets = res;
-      this.$store.commit("SET_PROJECT_LIST_LOADED", true)
-    });
+    this.$store.dispatch("INIT_LINKED_DATASETS")
   },
   methods: {
     fileClicked(e) {

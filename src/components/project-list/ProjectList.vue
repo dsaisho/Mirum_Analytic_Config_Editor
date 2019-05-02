@@ -31,17 +31,10 @@
 </template>
 
 <script>
-import Pappa from "papaparse";
-import {
-  GetFile,
-  UploadFile,
-  GetProjectInfo,
-  GetLinkedDatasets
-} from "@/utils/api/data-world-api.js";
+
 
 export default {
   name: "UpdateDataset",
-  components: {},
   computed:{
     projectName (){
       return this.$store.state.projectName
@@ -49,11 +42,6 @@ export default {
     editableDatasets(){
       return this.$store.getters.editableDatasets
     }
-  },
-  data() {
-    return {
-     
-    };
   },
   destroyed: function(){
      this.$store.commit("SET_PROJECT_LIST_LOADED", false)

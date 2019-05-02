@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import HomeView from "./views/HomeView.vue";
 import EditView from "./views/EditView.vue";
+import ConfigView from "./views/ConfigView.vue";
 
 
 
@@ -14,12 +15,17 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: HomeView
     },
     {
       path: "/edit",
       name: "edit",
       component: EditView
+    },
+    {
+      path: "/config",
+      name: "config",
+      component: ConfigView
     }
   ]
 });

@@ -1,13 +1,8 @@
 <template>
   <keep-alive>
     <v-layout wrap>
-      <v-flex class="about" xs12  mt-3 text-xs-center >
-        <v-card white>
-        <h1>Edit Tables</h1>
-        <p class="" >*click into any cell to start editing, click 'Save Table' to save your changes</p>
-      </v-card>
-      </v-flex>
-
+      <SubHeader title="Edit Tables" description="*click into any cell to start editing, click 'Save Table' to save your changes"/>
+      
       <v-flex d-flex>
         <v-flex style="max-width: 290px">
           <ProjectList/>
@@ -29,11 +24,13 @@
 <script>
 import ProjectList from "@/components/project-list/ProjectList.vue";
 import EditTable from "@/components/edit-table/EditTable.vue";
-
+import SubHeader from "@/components/header/SubHeader.vue"
 export default {
+  name:"EditView",
   components: {
     ProjectList,
-    EditTable
+    EditTable,
+    SubHeader
   },
 
   computed: {

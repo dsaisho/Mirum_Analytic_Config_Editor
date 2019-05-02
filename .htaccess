@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "restricted area"
-AuthUserFile /home/mistersa/.htpasswds/.htpasswd
-require valid-user

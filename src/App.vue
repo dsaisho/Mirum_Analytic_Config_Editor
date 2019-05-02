@@ -2,7 +2,7 @@
   <v-app id="app">
     <v-container fluid  >
       <Header />
-      <v-flex grey px-3>
+      <v-flex grey pa-3>
       <router-view />
       </v-flex>
     </v-container>

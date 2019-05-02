@@ -7,8 +7,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    projectName: "testupload",
-    //projectName:"marketing-tag-delivery-uhc"
+    projectName:"marketing-tag-delivery-uhc",
     projectListLoaded: false,
     tableCategories: [],
     tableHeaders: {},
@@ -23,12 +22,16 @@ export const store = new Vuex.Store({
     SET_DATASET(state, _value) {
       state.datasets = _value
     },
+    SET_PROJECT_NAME(state,_value){
+      state.projectName = _value
+    },
     updateActiveFile: function (state, _value) {
       //note:: _value = [activeFile , activeDataset]
       state.activeFile = _value[0]
       state.activeDataset = _value[1]
     },
     createTableHeaders: function (state) {
+      //TODO MAKETHIS A GETTER
       state.tableHeaders = Object.keys(state.tableCategories[0]).map(
         category => {
           return {

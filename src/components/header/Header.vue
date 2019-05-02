@@ -9,9 +9,10 @@
           <span>view/edit project files for marketing-tag-delivery-uhc</span>
         </div>
       </v-flex>
-      <v-flex align-end d-flex red--text mb-3>
+      <v-flex align-end d-flex red--text mb-3 title>
         <router-link to="/">Home</router-link>
         <router-link to="/edit">Edit Tables</router-link>
+        <router-link to="/config">Config</router-link>
       </v-flex>
     </v-card>
   </v-layout>
@@ -25,6 +26,7 @@ export default {
 
 <style scoped>
 a{
-    color:#d4005f
+    text-decoration: none;
+    color:#361536;
 }
 </style>

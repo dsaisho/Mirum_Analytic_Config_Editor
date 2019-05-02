@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-card v-for="(dataset,key) in datasets" :key="key" class="pa-1 mb-3">
+    <v-card v-for="(dataset,key) in datasets" :key="key" class="pa-1 mb-3" >
       <h2>
         <v-icon class="light-blue--text">folder</v-icon>
         {{dataset.data.id}}
@@ -49,29 +49,28 @@ export default {
   },
   data() {
     return {
-      datasets: [],
-      activeFile: "",
-      datasetName: ""
+      datasets: []
     };
   },
   destroyed: function(){
     this.$store.state.projectListLoaded = false;
   },
   mounted: function() {
+    //TODO: make this an action in the store
     //get the project info
     GetLinkedDatasets(this.projectName).then(res => {
       this.datasets = res;
-      this.$store.state.projectListLoaded = true;
+      this.$store.commit("SET_PROJECT_LIST_LOADED", true)
     });
   },
   methods: {
     fileClicked(e) {
-      
-      this.activeFile = e.target.offsetParent.getAttribute("file-name");
-      this.datasetName = e.target.offsetParent.getAttribute("dataset");
+      //TODO: maybe make a getAttribute method in a utils class. getAttr("file-name", e)
+      const activeFile = e.target.offsetParent.getAttribute("file-name");
+      const datasetName = e.target.offsetParent.getAttribute("dataset");
       this.$store.commit("updateActiveFile", [
-        this.activeFile,
-        this.datasetName
+        activeFile,
+        datasetName
       ]);
     }
   }

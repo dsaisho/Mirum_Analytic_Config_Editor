@@ -15,8 +15,8 @@
 
         <v-flex ml-3 v-if="this.readyToShowTable">
           <EditTable
-            :fileName="this.$store.state.activeFile"
-            :projectName="this.$store.state.projectName"
+            :fileName="this.fileName"
+            :dataSet="this.dataSet"
             uid="editTable"
           />
         </v-flex>
@@ -37,21 +37,18 @@ export default {
   },
 
   computed: {
-    fileName: function() {
+    fileName() {
       return this.$store.state.activeFile;
     },
-    readyToShowTable: function(){
-      return this.$store.state.activeFile && this.$store.state.projectListLoaded
+    dataSet(){
+     return this.$store.state.activeDataset
+    },
+    readyToShowTable(){
+      return this.$store.getters.readyToShowTable;
     }
   },
-  data() {
-    return {
-     
-    };
-  },
-  watch: {
-
-  },
+  data() {return { }},
+  watch: {},
   mounted() {},
   methods: {}
 };

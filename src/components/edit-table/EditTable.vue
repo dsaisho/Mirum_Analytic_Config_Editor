@@ -22,10 +22,7 @@
 import Pappa from "papaparse";
 import T from "tabulator-tables";
 import axios from "axios";
-import UploadTable from "@/utils/api/data-world-table-upload.js";
-import GetTable from "@/utils/api/data-world-get-file.js";
 
-import GetProject from "@/utils/api/data-world-get-project.js";
 
 import {
   GetFile,
@@ -37,7 +34,7 @@ import {
 export default {
   props: {
     fileName: String,
-    projectName: String,
+    dataSet: String,
     uid: String
   },
   data() {
@@ -80,7 +77,7 @@ export default {
       });
     },
     getTableData() {
-      return GetFile(this.fileName, this.projectName)
+      return GetFile(this.fileName, this.dataSet)
             .then(jsonData => {
               console.log(jsonData)
               this.loadedTableData = jsonData;
@@ -105,7 +102,7 @@ export default {
       UploadFile(
         Pappa.unparse(this.table.getData()),
         this.fileName,
-        this.projectName
+        this.dataSet
       ).then(res => console.log("table uploaded", res));
     },
     onLobSelected(e) {

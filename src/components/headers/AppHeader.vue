@@ -12,6 +12,7 @@
       <v-flex align-end d-flex red--text mb-3 title>
         <router-link to="/">Home</router-link>
         <router-link to="/edit">Edit Tables</router-link>
+        <router-link to="/outputs">View Outputs</router-link>
         <router-link to="/config">Config</router-link>
       </v-flex>
     </v-card>

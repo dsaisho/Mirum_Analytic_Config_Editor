@@ -43,12 +43,6 @@ export default {
       return this.$store.getters.editableDatasets
     }
   },
-  destroyed: function(){
-     this.$store.commit("SET_PROJECT_LIST_LOADED", false)
-  },
-  mounted: function() {
-    this.$store.dispatch("INIT_LINKED_DATASETS")
-  },
   methods: {
     fileClicked(e) {
       //TODO: maybe make a getAttribute method in a utils class. getAttr("file-name", e)

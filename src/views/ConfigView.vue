@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import SubHeader from "@/components/header/SubHeader.vue"
+import SubHeader from "@/components/headers/SubHeader.vue"
 import TextInput from"@/components/textInput/TextInput.vue"
 export default {
   name: "ConfigView",

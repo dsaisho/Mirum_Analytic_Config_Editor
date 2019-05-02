@@ -1,29 +1,8 @@
-# hello-vue
+# Data Driven Delivery
 
-## Project setup
+## Helpful LInks
 ```
-npm install
+https://data.world/mirumagency/marketing-tag-delivery-uhc/workspace/
+https://vuetifyjs.com/en/framework/grid
+https://apidocs.data.world/toolkit/api/api-endpoints/files/uploadfile
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

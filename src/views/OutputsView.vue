@@ -1,7 +1,7 @@
 <template>
   <keep-alive>
     <v-layout wrap>
-      <SubHeader title="Edit Tables" description="*click into any cell to start editing, click 'Save Table' to save your changes"/>
+      <SubHeader title="Outputs View" description="*view your project outputs"/>
       
       <v-flex d-flex>
         <v-flex style="max-width: 290px">
@@ -26,12 +26,13 @@ import ProjectList from "@/components/project-list/ProjectList.vue";
 import EditTable from "@/components/edit-table/EditTable.vue";
 import SubHeader from "@/components/headers/SubHeader.vue"
 export default {
-  name:"EditView",
+  name:"OutputsView",
   components: {
     ProjectList,
     EditTable,
     SubHeader
   },
+
   computed: {
     fileName() {
       return this.$store.state.activeFile;
@@ -43,12 +44,10 @@ export default {
       return this.$store.getters.readyToShowTable;
     }
   },
-  mounted() {
-    this.$store.dispatch("RETRIEVE_LINKED_DATASETS")
-  },
-  destroyed: function(){
-     this.$store.commit("SET_PROJECT_LIST_LOADED", false)
-  }
+  data() {return { }},
+  watch: {},
+  mounted() {},
+  methods: {}
 };
 
 /*

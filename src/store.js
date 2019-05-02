@@ -42,9 +42,9 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    INIT_LINKED_DATASETS: function (context) {
-      GetLinkedDatasets(context.state.projectName).then(res => {
-        context.commit("SET_DATASET", res)
+    RETRIEVE_LINKED_DATASETS: function (context) {
+      GetLinkedDatasets(context.state.projectName).then(linkedDatasets => {
+        context.commit("SET_DATASET", linkedDatasets)
         context.commit("SET_PROJECT_LIST_LOADED", true)
       })
     }

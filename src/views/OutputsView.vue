@@ -1,21 +1,22 @@
 <template>
   <keep-alive>
-    <v-layout wrap>
+    <v-layout column>
       <SubHeader title="Outputs View" description="*view your project outputs"/>
-      
-      <v-flex d-flex>
-        <v-flex style="max-width: 290px">
-          <ProjectList/>
-        </v-flex>
+        <div style="display:block; position:relative">
 
-        <v-flex ml-3 v-if="this.readyToShowTable">
-          <EditTable
+          </div>
+        <v-flex xs12>
+          <ProjectList :datasets="outputDatasets"/>
+        </v-flex>
+        
+        <v-flex  v-if="this.readyToShowTable">
+          <ViewTable
             :fileName="this.fileName"
             :dataSet="this.dataSet"
-            uid="editTable"
+            uid="outputTable"
           />
         </v-flex>
-      </v-flex>
+
     </v-layout>
   </keep-alive>
 </template>
@@ -23,13 +24,13 @@
 
 <script>
 import ProjectList from "@/components/project-list/ProjectList.vue";
-import EditTable from "@/components/edit-table/EditTable.vue";
+import ViewTable from "@/components/view-table/ViewTable.vue";
 import SubHeader from "@/components/headers/SubHeader.vue"
 export default {
   name:"OutputsView",
   components: {
     ProjectList,
-    EditTable,
+    ViewTable,
     SubHeader
   },
 
@@ -42,6 +43,9 @@ export default {
     },
     readyToShowTable(){
       return this.$store.getters.readyToShowTable;
+    },
+    outputDatasets(){
+      return this.$store.getters.outputDatasets
     }
   },
   data() {return { }},
@@ -50,16 +54,4 @@ export default {
   methods: {}
 };
 
-/*
-
-This EditView contain 
-
-the project list of files
-
-and
-
-the table 
-
-
-*/
 </script>

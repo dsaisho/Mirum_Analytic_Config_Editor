@@ -25,21 +25,11 @@ export const store = new Vuex.Store({
     SET_PROJECT_NAME(state,_value){
       state.projectName = _value
     },
-    updateActiveFile: function (state, _value) {
+    SET_ACTIVE_FILE: function (state, _value) {
       //note:: _value = [activeFile , activeDataset]
       state.activeFile = _value[0]
       state.activeDataset = _value[1]
-    },
-    createTableHeaders: function (state) {
-      //TODO MAKETHIS A GETTER
-      state.tableHeaders = Object.keys(state.tableCategories[0]).map(
-        category => {
-          return {
-            text: category,
-            value: category
-          }
-        });
-    },
+    }
   },
   actions: {
     RETRIEVE_LINKED_DATASETS: function (context) {
@@ -47,19 +37,30 @@ export const store = new Vuex.Store({
         context.commit("SET_DATASET", linkedDatasets)
         context.commit("SET_PROJECT_LIST_LOADED", true)
       })
+    },
+    SET_PROJECT_NAME: function(context,{name}){
+      context.commit("SET_PROJECT_NAME", name);
+      context.dispatch("RETRIEVE_LINKED_DATASETS")
     }
   },
   getters: {
     editableDatasets(state) {
-      const editableDatasets = state.datasets.reduce((_datasetList, currentDataset) => {
+      return state.datasets.reduce((_datasetList, currentDataset) => {
         const id = currentDataset.data.id;
         if (id.indexOf("output") === -1) {
           _datasetList.push(currentDataset)
         }
         return _datasetList
       }, [])
-      
-      return editableDatasets
+    },
+    outputDatasets(state) {
+      return state.datasets.reduce((_datasetList, currentDataset) => {
+        const id = currentDataset.data.id;
+        if (id.indexOf("output") !== -1) {
+          _datasetList.push(currentDataset)
+        }
+        return _datasetList
+      }, [])
     },
     readyToShowTable(state) {
       return state.activeFile && state.projectListLoaded

@@ -21,6 +21,9 @@ export default {
   },
   methods: {
     
+  },
+  created(){
+    this.$store.dispatch("RETRIEVE_LINKED_DATASETS")
   }
 };
 </script>

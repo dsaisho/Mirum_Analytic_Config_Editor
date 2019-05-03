@@ -1,18 +1,9 @@
 <template>
   <v-flex  >
-    <v-flex mr-3 >
+    <v-flex  >
       <div v-bind:id="this.uid"></div>
     </v-flex>
-    <v-flex xs12 align-content-center ml-0>
-      <v-btn class="ml-0" v-on:click="addRowClicked">Add Row</v-btn>
-      <v-btn v-if="this.selectedRow " v-on:click="deleteRowClicked">Delete Highlighted Row</v-btn>
-      <v-btn v-on:click="saveTableClicked">Save Table</v-btn>
-    </v-flex>
 
-
-    <v-flex xs4 v-if="false">
-      <v-select v-on:change="onLobSelected" :items="lobItems" label="Select LOB"></v-select>
-    </v-flex>
 
   </v-flex>
 </template>
@@ -58,7 +49,7 @@ export default {
   methods: {
     setupTable() {
       this.table = new T(`#${this.uid}`, {
-        
+        height:1000,
         data: this.loadedTableData, //load row data from array
         layout: "fitColumns", //fit columns to width of table
        // responsiveLayout: "hide", //hide columns that dont fit on the table

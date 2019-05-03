@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-card v-for="(dataset,key) in editableDatasets" :key="key" class="pa-1 mb-3" >
+    <v-card v-for="(dataset,key) in datasets" :key="key" class="pa-1 mb-3" >
       <h2>
         <v-icon class="light-blue--text">folder</v-icon>
         {{dataset.data.id}}
@@ -35,20 +35,13 @@
 
 export default {
   name: "UpdateDataset",
-  computed:{
-    projectName (){
-      return this.$store.state.projectName
-    },
-    editableDatasets(){
-      return this.$store.getters.editableDatasets
-    }
-  },
+  props:["datasets"],
   methods: {
     fileClicked(e) {
       //TODO: maybe make a getAttribute method in a utils class. getAttr("file-name", e)
       const activeFile = e.target.offsetParent.getAttribute("file-name");
       const datasetName = e.target.offsetParent.getAttribute("dataset");
-      this.$store.commit("updateActiveFile", [
+      this.$store.commit("SET_ACTIVE_FILE", [
         activeFile,
         datasetName
       ]);

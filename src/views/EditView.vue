@@ -5,7 +5,7 @@
       
       <v-flex d-flex>
         <v-flex style="max-width: 290px">
-          <ProjectList/>
+          <ProjectList :datasets="editableDatasets"/>
         </v-flex>
 
         <v-flex ml-3 v-if="this.readyToShowTable">
@@ -41,13 +41,13 @@ export default {
     },
     readyToShowTable(){
       return this.$store.getters.readyToShowTable;
+    },
+    editableDatasets(){
+      return this.$store.getters.editableDatasets
     }
   },
-  mounted() {
-    this.$store.dispatch("RETRIEVE_LINKED_DATASETS")
-  },
   destroyed: function(){
-     this.$store.commit("SET_PROJECT_LIST_LOADED", false)
+   //  this.$store.commit("SET_PROJECT_LIST_LOADED", false)
   }
 };
 

@@ -37,7 +37,9 @@ export default {
   },
   methods:{
     updateSettingsClicked(){
-      this.$store.commit("SET_PROJECT_NAME", this.projectNameInput)
+      this.$store.dispatch("SET_PROJECT_NAME", {name:this.projectNameInput})
+
+      this.$router.push("/")
     }
   }
 };

@@ -13,7 +13,7 @@
     "csvtojson": "^2.0.8",
     "papaparse": "^4.6.3",
     "tabulator-tables": "^4.2.3",
-    "vue": "^2.5.21",
+    "vue": "^2.6.10",
     "vue-json-pretty": "^1.4.1",
     "vue-router": "^3.0.1",
     "vue-virtual-table": "^0.2.5",
@@ -29,6 +29,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.12.0",
     "eslint-plugin-vue": "^5.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.10"
   }
 }

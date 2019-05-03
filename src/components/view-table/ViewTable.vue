@@ -85,7 +85,6 @@ export default {
         return {
           title: category,
           field: category,
-          editor: true,
           formatter: "textarea"
         };
       });

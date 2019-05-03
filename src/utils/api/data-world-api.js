@@ -34,8 +34,12 @@ export const GetFile = (_fileName = "", _id = "", _owner = defaultOwner) => {
 
 export const GetProjectInfo = (_id = "", _owner = defaultOwner) => {
     const fileUrl = `https://api.data.world/v0/projects/${_owner}/${_id}`;
-    
     return axios.get(fileUrl, basicConfig())
+}
+
+export const isValidProject = (_id="", _owner=defaultOwner) =>{
+    const fileUrl = `https://api.data.world/v0/projects/${_owner}/${_id}`;
+    return axios.get(fileUrl, basicConfig()).then(res=> true, error=>false)
 }
 
 export const GetDataset = (_id = "", _owner = defaultOwner)=>{
@@ -49,8 +53,8 @@ export const GetLinkedDatasets = (_id, _owner) => {
     return GetProjectInfo(_id, _owner)
         .then(res => {         
             const datasets = res.data.linkedDatasets.map((dataset,index) => GetDataset(dataset.id))    
-
             return axios.all(datasets)
-        })
+        },
+        error=>console.log("ASDF",error))
 }
 

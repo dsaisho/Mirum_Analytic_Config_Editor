@@ -16,6 +16,9 @@
 <script>
 import SubHeader from "@/components/headers/SubHeader.vue"
 import TextInput from"@/components/textInput/TextInput.vue"
+import {
+  isValidProject
+} from "@/utils/api/data-world-api.js";
 export default {
   name: "ConfigView",
   components:{
@@ -37,9 +40,12 @@ export default {
   },
   methods:{
     updateSettingsClicked(){
-      this.$store.dispatch("SET_PROJECT_NAME", {name:this.projectNameInput})
-
-      this.$router.push("/")
+      isValidProject(this.projectNameInput).then(res=>{
+        if(res){
+        this.$store.dispatch("SET_PROJECT_NAME", {name:this.projectNameInput})
+        this.$router.push("/")
+       }
+      })
     }
   }
 };

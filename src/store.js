@@ -1,11 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
+
+import createPersistedState from 'vuex-persistedstate'
+
 import {
-  GetLinkedDatasets
+  GetLinkedDatasets,
+  isValidProject
 } from "@/utils/api/data-world-api.js";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+  plugins:[createPersistedState()],
   state: {
     projectName:"marketing-tag-delivery-uhc",
     projectListLoaded: false,
@@ -34,13 +39,16 @@ export const store = new Vuex.Store({
   actions: {
     RETRIEVE_LINKED_DATASETS: function (context) {
       GetLinkedDatasets(context.state.projectName).then(linkedDatasets => {
+        console.log("DATASETS", linkedDatasets)
         context.commit("SET_DATASET", linkedDatasets)
         context.commit("SET_PROJECT_LIST_LOADED", true)
       })
     },
     SET_PROJECT_NAME: function(context,{name}){
-      context.commit("SET_PROJECT_NAME", name);
-      context.dispatch("RETRIEVE_LINKED_DATASETS")
+
+          context.commit("SET_PROJECT_NAME", name);
+          context.dispatch("RETRIEVE_LINKED_DATASETS")
+    
     }
   },
   getters: {
